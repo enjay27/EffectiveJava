@@ -40,11 +40,11 @@ public class UseStaticMemberClass {
     }
 
     static class StaticMemberClass {
-        public void staticMemberClassMethod(){};
+        public void staticMemberClassMethod(){}
     }
 
     class MemberClass {
-        public void MemberClassMethod(){};
+        public void MemberClassMethod(){}
     }
 
 }
