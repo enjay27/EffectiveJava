@@ -1,4 +1,4 @@
-package interfaceEx;
+package interfaceEx.item21;
 
 public class Item21 {
     public static void main(String[] args) {
