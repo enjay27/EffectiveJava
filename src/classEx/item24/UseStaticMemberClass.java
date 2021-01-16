@@ -19,6 +19,7 @@ public class UseStaticMemberClass {
 
         MemberClass m = new MemberClass();
         m.MemberClassMethod();
+
     }
 
     public void usingLambda() {
