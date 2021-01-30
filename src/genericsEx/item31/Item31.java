@@ -3,7 +3,6 @@ package genericsEx.item31;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 public class Item31 {
 
     public static void main(String[] args) {
@@ -12,6 +11,6 @@ public class Item31 {
         numberStack.pushAll(integers);
 
         Collection<Object> objects = new ArrayList<>();
-        //numberStack.popAll(objects); //컴파일에러
+        numberStack.popAll(objects);
     }
 }

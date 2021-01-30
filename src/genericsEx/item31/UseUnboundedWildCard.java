@@ -2,6 +2,7 @@ package genericsEx.item31;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Stack;
 
 public class UseUnboundedWildCard<E> {
 
@@ -26,7 +27,6 @@ public class UseUnboundedWildCard<E> {
 
         return element;
     }
-
 
     public static void swapWildCard(List<?> list, int i, int j){
         swapHelper(list, i, j);
