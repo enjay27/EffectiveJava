@@ -1,5 +1,7 @@
 package enumEx.item38;
 
+import java.util.Optional;
+
 public enum ExtendedOperation implements UseInterface {
     EXP("^"){
         @Override
@@ -24,4 +26,6 @@ public enum ExtendedOperation implements UseInterface {
     public String toString() {
         return symbol;
     }
+
+
 }

@@ -1,7 +1,11 @@
 package enumEx.item38;
 
+import enumEx.item37.UseEnumMap;
+
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.EnumMap;
+import java.util.stream.Collectors;
 
 public class Item38 {
     public static void main(String[] args) {
@@ -10,6 +14,9 @@ public class Item38 {
         test1(ExtendedOperation.class, x, y);
         test2(Arrays.asList(ExtendedOperation.values()), x, y);
         test1(BasicOperation.class, x, y);
+
+
+
     }
 
     private static <T extends Enum<T> & UseInterface> void test1(Class<T> opEnumType, double x, double y) {
