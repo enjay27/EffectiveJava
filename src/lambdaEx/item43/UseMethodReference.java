@@ -4,6 +4,7 @@ import enumEx.item38.ExtendedOperation;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 
 public class UseMethodReference {
     public static void main(String[] args) {
@@ -17,7 +18,8 @@ public class UseMethodReference {
         service.execute(() -> action());
         service.execute(UseMethodReference::action);
 
-
+        A a = A.createA();
+        useA(t -> a.a());
     }
 
     public static void action() {
@@ -39,5 +41,30 @@ public class UseMethodReference {
     interface G extends G1, G2 {
 
     }
+
+    public static void useA(UnaryOperator<G> o) {
+        G g = new A();
+        o.apply(g);
+    }
+
+    static class A implements G {
+        public static A createA() {
+            return new A();
+        }
+        public A a() {
+            return this;
+        }
+
+        @Override
+        public <E extends Exception> String m() throws E {
+            return null;
+        }
+
+        public static void useA(UnaryOperator<G> o) {
+            G g = new A();
+            o.apply(g);
+        }
+    }
+
 
 }
