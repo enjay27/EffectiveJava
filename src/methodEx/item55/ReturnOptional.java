@@ -26,7 +26,8 @@ public class ReturnOptional {
         Stream<Integer> integerStream = streamOfOptionals.flatMap(Optional::stream);
         integerStream.forEach(System.out::println);
 
-        BuilderWithOptional builder = new BuilderWithOptional.Builder(10, 20).value1(15).value2(18).value3(210).build();
+        BuilderWithOptional builder =
+                new BuilderWithOptional.Builder(3333, 222).value1(15).value2(18).value3(210).build();
         Stream<OptionalInt> nullableStream = Stream.of(builder.getNotNeededValue1(), builder.getNotNeededValue2(),
                 builder.getNotNeededValue3());
         IntStream intStream = nullableStream.flatMapToInt(OptionalInt::stream);
