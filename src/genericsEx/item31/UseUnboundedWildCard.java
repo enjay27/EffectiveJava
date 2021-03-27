@@ -24,7 +24,6 @@ public class UseUnboundedWildCard<E> {
     }
 
     private E pop() {
-
         return element;
     }
 

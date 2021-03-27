@@ -1,5 +1,7 @@
 package enumEx.item37;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,12 @@ public class UseEnumMap {
         arrayGarden[2] = new UseEnumMap("cc", LifeCycle.PERENNIAL);
         arrayGarden[3] = new UseEnumMap("dd", LifeCycle.BIENNIAL);
         arrayGarden[4] = new UseEnumMap("ee", LifeCycle.BIENNIAL);
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public UseEnumMap(String name, LifeCycle lifeCycle) {
