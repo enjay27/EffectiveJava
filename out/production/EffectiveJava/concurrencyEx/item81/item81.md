@@ -1,8 +1,9 @@
 ## 아이템 81. wait와 notify보다는 동시성 유틸리티를 애용하라
 
-### wait & notify
+### 동시성 유틸리티
 > wait와 notify는 올바르게 사용하기가 까다롭다.
-대신 사용할 고수준 유틸리티는 세 범주로 나뉜다.
+대신 사용할 고수준 유틸리티는 세 범주로 나뉜다.    
+> - 실행자 프레임워크, 동시성 컬렉션, 동기화 장치
 
 ### 실행자 프레임워크
 > item80 으로
@@ -88,3 +89,27 @@ public static long time(Executor executor, int concurrency,
 위에서는 카운트다운 래치를 3개 사용한다.    
 ready 래치가 작업자 스레드들이 준비가 완료됐음을 알린다. 
 이후 작업자 스레드가 모두 준비될 때까지 기다렸다가 모든 작업자 스레드가 준비중이면 action을 실행시킨다.
+ready를 대기상태로 두고 start.countDown 을 호출하여 작업자 스레드를 깨운다.
+마지막 작업자가 done.countDown 을 호출하여 done 이 열리면 종료 시각을 기록하고 끝낸다.
+
+```java
+public static void main(String[] args) throws InterruptedException {
+    Executor executor = Executors.newCachedThreadPool();
+
+    System.out.println(ConcurrentTimer.time(executor, 5, () -> {})); // 134900
+    System.out.println(ConcurrentTimer.time(executor, 10, () -> {})); // 75900
+    System.out.println(ConcurrentTimer.time(executor, 15, () -> {})); //97200
+    System.out.println(ConcurrentTimer.time(executor, 20, () -> {})); // 154700
+}
+```
+
+### wait & notify
+어쩔 수 없이 wait & notify 를 써야하는 경우 wait은 반복문 안에서 호출해야 한다.  
+조건이 충족된 경우 wait 를 건너뛰게 하여 응답 불가 상태를 예방한다.   
+조건이 충족되지 않은 경우 wait 를 하게 하는 것은 안전 실패를 막는 조치다. 
+
+### notify & notifyAll
+둘 중에는 notifyAll 을 사용하는 게 더 안전하다.    
+깨어나야 하는 모든 스레드가 깨어남을 보장한다.    
+조건이 맞지 않아 대기중이던 스레드는 조건문을 거쳐 다시 대기상태가 된다.
+
