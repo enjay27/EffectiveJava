@@ -2,6 +2,8 @@ package com.enjay27;
 
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -10,44 +12,76 @@ public class EffectiveJava {
 
     public static void main(String[] args) {
 
-        int[][] board = {{0, 0, 0, 0, 0}, {0, 0, 1, 0, 3}, {0, 2, 5, 0, 1},
-                {4, 2, 4, 4, 2}, {3, 5, 1, 3, 1}};
-        int[] moves = {1, 5, 3, 5, 1, 2, 1, 4};
-
-        System.out.println(solution(board, moves));
-
-
     }
 
-    public static int solution(int[][] board, int[] moves) {
+    public Article getArticleByIdV2() {
+        ArticleDetail articleDetail = new ArticleDetail();
 
-        int result = 0;
+        Article article = Optional.ofNullable(articleDetail)
+                .stream()
+                .peek(ArticleDetail::validAndValuateArticle)
+                .map(ArticleDetail::getArticle)
+                .findAny().get();
 
-        Stack<Integer> integerStack = new Stack<>();
+        return article;
+    }
 
-        integerStack.push(0);
-        int pre = 0;
+    public Article getArticleById(int id) {
+        ArticleDetail articleDetail = new ArticleDetail();
 
-        Loop1:
-        for (int m : moves) {
-            for(int r = 0; r < board.length; r++){
-                int gripped = board[r][m - 1];
-                if(gripped > 0) {
-                    board[r][m-1] = 0;
-                    pre = integerStack.peek();
-                    if(pre != gripped) {
-                        integerStack.push(gripped);
-                    }
-                    else if(pre == gripped) {
-                        integerStack.pop();
-                    }
-                    continue Loop1;
-                }
+        Article article = null;
+
+        if (articleDetail != null) {
+            article = articleDetail.getArticle();
+            List<String> thumbnailFile = articleDetail.getThumbnailFile();
+
+            if (article != null && thumbnailFile != null) {
+                article.setThumbnailFile(thumbnailFile);
             }
         }
 
-        return integerStack.size();
+        return article;
     }
+
+    static class ArticleDetail {
+
+        private Article article;
+        private List<String> thumbnailFile;
+
+        public Article getArticle() {
+            return article;
+        }
+
+        public List<String> getThumbnailFile() {
+            return thumbnailFile;
+        }
+
+        public static void validAndValuateArticle(ArticleDetail articleDetail) {
+            if (articleDetail.hasArticle() && articleDetail.hasThumbnailUrl())
+                articleDetail.getArticle().setThumbnailFile(articleDetail.getThumbnailFile());
+        }
+
+        public boolean hasArticle() {
+            return article != null;
+        }
+
+        public boolean hasThumbnailUrl() {
+            return thumbnailFile != null;
+        }
+    }
+
+    static class Article {
+        List<String> thumbnailFile;
+
+        public List<String> getThumbnailFile() {
+            return thumbnailFile;
+        }
+
+        public void setThumbnailFile(List<String> thumbnailFile) {
+            this.thumbnailFile = thumbnailFile;
+        }
+    }
+
 
 
 
